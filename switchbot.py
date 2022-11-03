@@ -15,18 +15,18 @@ def main():
     headers = make_headers(token, secret)
     res  = requests.get(url, headers=headers).json()
     devices = res['body']['deviceList']
-    meterpluses = []
+    meters = []
     
     for device in devices:
-        if device['deviceType'] == 'MeterPlus':
-            meterpluses.append(device)
+        if device['deviceType'] == 'MeterPlus' or device['deviceType'] == 'Meter':
+            meters.append(device)
     
     # print(meterplus_ids)
-    for meterplus in meterpluses:
-        url = "{}/v1.1/devices/{}/status".format(base_url, meterplus['deviceId'])
+    for meter in meters:
+        url = "{}/v1.1/devices/{}/status".format(base_url, meter['deviceId'])
         res = requests.get(url, headers=headers).json()
         print('=======================================')
-        print('名前: {}'.format(meterplus['deviceName']))
+        print('名前: {}'.format(meter['deviceName']))
         print('気温: {} ℃'.format(res['body']['temperature']))
         print('湿度: {} %'.format(res['body']['humidity']))
         print('=======================================')
