@@ -3,7 +3,6 @@ import hashlib
 import hmac
 import base64
 import uuid
-import json
 import configparser
 
 import requests
